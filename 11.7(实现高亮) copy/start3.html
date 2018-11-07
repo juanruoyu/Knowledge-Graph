@@ -11,12 +11,21 @@
                 stroke: #777;
                 stroke-opacity: .2;
             }
+        
+        #right_select_box {
+                line-height:30px;
+                background-color:#eeeeee;
+                height:900px;
+                width:300px;
+                float:right;
+                padding:10px;	      
+            }
     </style>
     <body>
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="main.css" />
-    <script src="jquery-1.9.1.js"></script>
-    <script src="d3.v3.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="lib/style/bootstrap.min.css">
+
+    <script src="lib/jquery-1.9.1.js"></script>
+    <script src="lib/d3.v3.min.js" charset="utf-8"></script>
     <script src="main.js"></script>
 
     <nav class="navbar nav-default" role="navigation" style="background-color: grey; max-height: 60px;">
@@ -28,7 +37,14 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="http://vis.cse.ust.hk/"  style="color: #ffffff">About Us</a></li>
                 <li><a href="#"  style="color: #ffffff">Help</a></li>
-
-
+            </ul>
+        </div>
+    </nav>
+    <div id="right_select_box">
+        <div id= "col-sm-3 col-sm-offset-9 col-md-3 col-md-offset-9 sidebar" ng-class="{invisible: uiConfig.hideControlPanel}">
+            dasdasd
+            <div ng-include src="views/rightSidebar.html"></div>
+        </div>
+    </div>    
     </body>
 </html>

@@ -1,6 +1,6 @@
 
 
-                d3.json("nodes_edges.json", function(data) {
+                d3.json("json_datas/nodes_edges.json", function(data) {
                 //console.log('read',data);
                 //因为d3.json是异步调用，所以必须在异步获取数据里做 visiualize
                 new_data = generate_nodes_edges(data.nodes)
