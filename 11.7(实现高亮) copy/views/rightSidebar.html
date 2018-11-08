@@ -1,5 +1,9 @@
-<div id="right-sidebar" ng-controller="rightCtrl">
-        <h4> Control Panel: </h4>
+
+<!-- <div id="right-sidebar" ng-app="myApp" ng-controller="rightCtrl"> -this is function in rightCtrl function should -->
+<div ng-app = "">   
+    <h4> Control Panel: </h4>
+        <p>名字 : <input type="text" ng-model="name"></p>
+        <h1>Hello {{name}}</h1>
         <!--<tabset>-->
             <!--<tab heading="Node Table" select="rightSidebar.detailedSelect = 'table'" style="cursor: pointer"></tab>-->
             <!--<tab heading="Node Filter" select="rightSidebar.detailedSelect = 'filter'" style="cursor: pointer"></tab>-->
