@@ -1,6 +1,6 @@
 
 <!-- <div id="right-sidebar" ng-app="myApp" ng-controller="rightCtrl"> -this is function in rightCtrl function should -->
-<div ng-app = "">   
+<div ng-app = "myApp">   
     <h4> Control Panel: </h4>
         <p>名字 : <input type="text" ng-model="name"></p>
         <h1>Hello {{name}}</h1>
@@ -10,11 +10,11 @@
         <!--</tabset>-->
     
         <!--<div ng-if="rightSidebar.detailedSelect == 'table'">-->
-        <div ng-include src="views/queryFilter.html">
+        <!-- <div ng-include src="views/queryFilter.html">
         </div>
         <div>
             <div table-directive table-config="tableConfig" table-data="currentNodes" ng-controller="tableCtrl" highlight-node="highlightNode(node)">
             </div>
-        </div>
+        </div> -->
     </div>
     

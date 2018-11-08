@@ -21,9 +21,11 @@
                 padding:10px;	      
             }
     </style>
-    <body>
+    
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+
+    <body >
         <link rel="stylesheet" href="lib/style/bootstrap.min.css">
-        <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
 
     
         <nav class="navbar nav-default" role="navigation" style="background-color: grey; max-height: 60px;">
@@ -49,8 +51,10 @@
                         <br>
                         姓名: {{output()}}
                          
-                </div>                        
-                <div ng-include src="views/rightSidebar.html"></div>
+                </div>    
+                <ng-include src="filename" onload="expression'" autoscroll="expression" ></ng-include>
+                    
+                <div ng-include src="'views/rightSidebar.html'"></div>
             </div>
         </div>  
 
