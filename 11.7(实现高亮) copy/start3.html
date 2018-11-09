@@ -52,23 +52,26 @@
                         姓名: {{output()}}
                          
                 </div>    
-                <!-- <ng-include src="filename" onload="expression'" autoscroll="expression" ></ng-include> -->
   
                 <div ng-include src="'views/rightSidebar.html'" class="ng-scope">rightSidebar</div>
+                    <!-- need add rightctrl function ---------------------->
                 <div id="right-sidebar" ng-controller="rightCtrl" class="ng-scope"> rightCtrl</div>
                     <h4>Control Panel:</h4>
                     <div ng-include src="'views/queryFilter.html'" class="ng-scope"></div>
-                    <div class="info-header">
-                        <h5> Querys:</h5>
-                    </div>
-                    <div ng-if="dataLoadFlag == 1" class="ng-scope">
-                        <div id="searchWrapper" class="queryWarpper">
-                            <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Graph node name" style="width:63%;display:inline" ng-model="querData.searchText">
-                            <button type="button" class="btn btn-primary" style="display: inline" ng-click="search()"> Search</button>
-                            <button type="button" class="btn btn-primary" style="display: inline" ng-click="reset()"> Reset</button>
-
+                    <div id="queryFilter" ng-controller="queryFilterCtrl" class="ng-scope">
+                        <div class="info-header">
+                            <h5> Querys:</h5>
                         </div>
-                    </div>
+                        <div ng-if="dataLoadFlag == 1" class="ng-scope">
+                            <div id="searchWrapper" class="queryWarpper">
+                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Graph node name" style="width:63%;display:inline" ng-model="querData.searchText">
+                                <button type="button" class="btn btn-primary" style="display: inline" ng-click="search()"> Search</button>
+                                <button type="button" class="btn btn-primary" style="display: inline" ng-click="reset()"> Reset</button>
+                            </div>
+                        </div>
+                </div>  
+
+                    
             </div>
         </div>  
 
