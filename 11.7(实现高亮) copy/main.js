@@ -7,6 +7,7 @@
                 new_data = generate_nodes_edges(data.nodes);
                 new_data.edges = data.edges;
                 global_datas = new_data;
+                localStorage.setItem("global_datas",JSON.stringify(global_datas)); //存入 参数： 1.调用的值 2.所要存入的数据 
                 visiual(new_data);
             });
 
@@ -28,10 +29,12 @@
                 //         })
                 // }
                 //console.log(nodes,edges)
+                
                 return {
                     "nodes":nodes,
                     "edges":{},
                 }
+
             };
                 //调用visiual函数
             function visiual(data){
@@ -47,7 +50,7 @@
                     .attr("width",1100)
                     .attr("height",1000)
 
-                console.log(nodes,edges, )//nodes.length,edges.length)
+                //console.log(nodes,edges, )//nodes.length,edges.length)
                 var force = d3.layout.force()
                     .nodes(nodes) //指定节点数组
                     .links(edges) //指定连线数组
