@@ -79,8 +79,8 @@
                     .attr("transform",offset)
                     .attr("r",5)
                     .style("fill",function(d,i){
-                return color(i);
-                })
+                        return color(i);
+                    })
                     .on("mouseover",function(d){mouseover_node(d);})
                     .on("mouseout", function(d){mouseout_node(d);})
                     .call(force.drag);  //使得节点能够拖动
@@ -96,60 +96,60 @@
                     .attr("dy", 8)
                     .attr("font-size","7px")
                     .text(function(d){
-                return d.name;
-            });
+                        return d.name;
+                    });
 
                 force.on("tick", function(){ //对于每一个时间间隔
-                //更新连线坐标
-                svg_edges.attr("x1",function(d){ return d.source.x; })
-                    .attr("y1",function(d){ return d.source.y; })
-                    .attr("x2",function(d){ return d.target.x; })
-                    .attr("y2",function(d){ return d.target.y; });
+                    //更新连线坐标
+                    svg_edges.attr("x1",function(d){ return d.source.x; })
+                        .attr("y1",function(d){ return d.source.y; })
+                        .attr("x2",function(d){ return d.target.x; })
+                        .attr("y2",function(d){ return d.target.y; });
 
-                //更新节点坐标
-                svg_nodes.attr("cx",function(d){ return d.x; })
-                    .attr("cy",function(d){ return d.y; });
+                    //更新节点坐标
+                    svg_nodes.attr("cx",function(d){ return d.x; })
+                        .attr("cy",function(d){ return d.y; });
 
-                //更新文字坐标
-                svg_texts.attr("x", function(d){ return d.x; })
-                    .attr("y", function(d){ return d.y; });
-            });
+                    //更新文字坐标
+                    svg_texts.attr("x", function(d){ return d.x; })
+                        .attr("y", function(d){ return d.y; });
+                });
 
 
 
                 var mouseout_node = function(z){
-                svg_edges.style("stroke-opacity", 0.2);
-                svg_nodes.style("stroke-width", 1)
-                    .attr("r",5)
-                svg_texts.attr("font-size", 10)
-                    .style("fill-opacity", 1)
-            };
+                    svg_edges.style("stroke-opacity", 0.2);
+                    svg_nodes.style("stroke-width", 1)
+                        .attr("r",5)
+                    svg_texts.attr("font-size", 10)
+                        .style("fill-opacity", 1)
+                };
 
                 var mouseover_node = function(z){
-                var neighbors = {};
-                neighbors[z.index] = true;
-                svg_edges.filter(function(d){
-                    if (d.source == z) {
-                        neighbors[d.target.index] = true
-                        return true
-                    } else if (d.target == z) {
-                        neighbors[d.source.index] = true
-                        return true
-                    } else {
-                        return false
-                    }
-                })
-                    .style("stroke-opacity", 1);
+                    var neighbors = {};
+                    neighbors[z.index] = true;
+                    svg_edges.filter(function(d){
+                        if (d.source == z) {
+                            neighbors[d.target.index] = true
+                            return true
+                        } else if (d.target == z) {
+                            neighbors[d.source.index] = true
+                            return true
+                        } else {
+                            return false
+                        }
+                    })
+                        .style("stroke-opacity", 1);
 
-                svg_nodes.filter(function(d){ return neighbors[d.index] })
-                    .style("stroke-width", 3)
-                    .attr("r" ,Math.ceil(Math.random() * 10+10));
+                    svg_nodes.filter(function(d){ return neighbors[d.index] })
+                        .style("stroke-width", 3)
+                        .attr("r" ,Math.ceil(Math.random() * 10+10));
 
-                svg_texts.filter(function(d){ return !neighbors[d.index] })
-                    .style("fill-opacity", 0.2);
+                    svg_texts.filter(function(d){ return !neighbors[d.index] })
+                        .style("fill-opacity", 0.2);
 
-                svg_texts.filter(function(d){ return neighbors[d.index] })
-                    .attr("font-size", "30px")
+                    svg_texts.filter(function(d){ return neighbors[d.index] })
+                        .attr("font-size", "30px")
 
                 };
 

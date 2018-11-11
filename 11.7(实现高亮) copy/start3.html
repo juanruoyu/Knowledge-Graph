@@ -135,28 +135,30 @@
         <script>
             //数据更新
             function update(){
-                
+                var datas = JSON.parse(localStorage.getItem("global_datas"));
                 var edges = []//datas.edges;
                 var nodes = []//datas.nodes;//['a', 'b', 'c'];
-                nn = ["a","b","c","d","e"]
+                // nn = ["a","b","c","d","e"]
                 console.log("without push",nodes.length,edges.length)
                 for(var j=0 ;j<5; j++){
-                    nodes.push(nn[i])    
+                    nodes.push(datas.nodes[j])    
                     edges.push({
                             "source":Math.ceil(Math.random() * (nodes.length - 1) ),
                             "target":Math.ceil(Math.random() * (nodes.length - 1) ),
                     })
                 }
                 console.log("push", nodes.length,edges.length)
-                d = {"nodes":nodes,"edges":edges}
-                //console.log(d)
+                d = {"nodes":nodes,"edges":edges}               
                 Show_select_Points(d);
+
             }
             //增加数据
             function recover(){
                 var datas = JSON.parse(localStorage.getItem("global_datas"));
+                d = {"nodes":datas.nodes,"edges":datas.edges}               
+                Show_select_Points(d);
                 //visiual(datas)
-                
+
                 // for (var i =0; i<10;i++){
                 //     dataset.push({
                 //         x:Math.random()*100,
@@ -166,20 +168,26 @@
                 // updatePoints();
             }
             function decrease(){
-                // for (var i =0; i<5;i++){
-                //     dataset.pop()
-                // }
-                // for (var i =0; i<5;i++){
-                //     dataset[i].x = Math.random()*100,
-                //     dataset[i],y = Math.random()*100
-                //     };
+                var edges = []//datas.edges;
+                var nodes = []//datas.nodes;//['a', 'b', 'c'];
                 
-                // updatePoints();
+                dempty = {"nodes":[],"edges":[]}
+                Show_select_Points(dempty);
+                
             }
             
 
             function Show_select_Points(dataset){
                 var svg = d3.selectAll("svg")
+
+                var force = d3.layout.force()
+                    .nodes(dataset.nodes) //指定节点数组
+                    .links(dataset.edges) //指定连线数组
+                    .size([1100,1080]) //指定作用域范围
+                    .linkDistance(60) //指定连线长度
+                    .charge([-400]); //相互之间的作用力;
+                    force.start();
+
                 var update_lines = svg.selectAll("line")
                     .data(dataset.edges);
                 var update_nodes = svg.selectAll('circle')
@@ -218,9 +226,7 @@
                 enter_nodes.append("circle")                  
                     .attr("transform",offset)
                     .attr("r",5)
-                    .style("fill",function(d,i){
-                        return color(i);
-                    })
+         
                     // .on("mouseover",function(d){mouseover_node(d);})
                     // .on("mouseout", function(d){mouseout_node(d);})
                     // .call(force.drag);  //使得节点能够拖动;
@@ -270,7 +276,7 @@
 
         </script>
         <button onclick="update()">update</button>
-        <button onclick="add()">add</button>
+        <button onclick="recover()">recover</button>
         <button onclick="decrease()">decrease</button>
 
     </body>
