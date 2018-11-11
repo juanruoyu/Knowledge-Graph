@@ -90,7 +90,11 @@
                                             <tr ng-repeat= "node in tableData" class="selectable ng-scope" ng-click="highlightNode({node.node})">
                                                 <td  ng-app="myApp3" ng-init="graphnode1='Function'" ng-controller="cc">
                                                     <p> Node Name: {{graphnode1}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
-                                                    <p> Node Name: {{graphnode2}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>                                    
+                                                    <p> Node Name: {{graphnode2}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
+                                                    <p> Node Name: {{graphnode3}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
+                                                    <p> Node Name: {{graphnode4}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
+                                                    <p> Node Name: {{graphnode5}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
+
                                                 </td>
                                                 
                                             <script> 
@@ -104,8 +108,9 @@
 
                                                         $scope.graphnode1 = "John";
                                                         $scope.graphnode2 = global_datas.nodes[0].name;
-                                                        
-                                                        
+                                                        $scope.graphnode3 = global_datas.nodes[1].name;
+                                                        $scope.graphnode4 = global_datas.nodes[2].name;
+                                                        $scope.graphnode5 = global_datas.nodes[3].name;
 
                                                     });     
                                             </script>
@@ -130,56 +135,77 @@
         <script>
             //数据更新
             function update(){
-                var edges = [];
-                var nodes = ['a', 'b', 'c'];
                 
-                for(var j=0 ;j<nodes.length; j++){
-                        edges.push({
+                var edges = []//datas.edges;
+                var nodes = []//datas.nodes;//['a', 'b', 'c'];
+                nn = ["a","b","c","d","e"]
+                console.log("without push",nodes.length,edges.length)
+                for(var j=0 ;j<5; j++){
+                    nodes.push(nn[i])    
+                    edges.push({
                             "source":Math.ceil(Math.random() * (nodes.length - 1) ),
                             "target":Math.ceil(Math.random() * (nodes.length - 1) ),
-                        })
+                    })
                 }
+                console.log("push", nodes.length,edges.length)
                 d = {"nodes":nodes,"edges":edges}
-                console.log(d)
-                updatePoints(d);
+                //console.log(d)
+                Show_select_Points(d);
             }
-            // //增加数据
-            // function add(){
-            //     for (var i =0; i<10;i++){
-            //         dataset.push({
-            //             x:Math.random()*100,
-            //             y:Math.random()*100
-            //         });
-            //     }
-            //     updatePoints();
-            // }
-            // function decrease(){
-            //     for (var i =0; i<5;i++){
-            //         dataset.pop()
-            //     }
-            //     for (var i =0; i<5;i++){
-            //         dataset[i].x = Math.random()*100,
-            //         dataset[i],y = Math.random()*100
-            //         };
+            //增加数据
+            function recover(){
+                var datas = JSON.parse(localStorage.getItem("global_datas"));
+                //visiual(datas)
                 
-            //     updatePoints();
-            // }
-            var svg = d3.selectAll("svg")
+                // for (var i =0; i<10;i++){
+                //     dataset.push({
+                //         x:Math.random()*100,
+                //         y:Math.random()*100
+                //     });
+                // }
+                // updatePoints();
+            }
+            function decrease(){
+                // for (var i =0; i<5;i++){
+                //     dataset.pop()
+                // }
+                // for (var i =0; i<5;i++){
+                //     dataset[i].x = Math.random()*100,
+                //     dataset[i],y = Math.random()*100
+                //     };
+                
+                // updatePoints();
+            }
+            
 
-            function updatePoints(dataset){
-
+            function Show_select_Points(dataset){
+                var svg = d3.selectAll("svg")
                 var update_lines = svg.selectAll("line")
                     .data(dataset.edges);
                 var update_nodes = svg.selectAll('circle')
                     .data(dataset.nodes);
+                var update_texts = svg.selectAll("text")
+                    .data(dataset.nodes)
+                console.log('test',dataset)
+                
+                //绑定数据后，分别获取update和enter部分
                 var enter_lines = update_lines.enter()
                 var enter_nodes = update_nodes.enter()
+                var enter_texts = update_texts.enter()
+
+                //update部分的处理方法是直接修改内容
+                //update.text( function(d){ return d; } );
+
                 var exit_lines = update_lines.exit();
                 var exit_nodes = update_nodes.exit();
-                
-                //有新数据没有足够的元素，插入新元素，并将元素赋予新的数据
-                enter_lines.append("circle")
-                    // .attr("class","mycircle")
+                var exit_texts = update_texts.exit();
+
+                offset = "translate(10,-100)"
+                //有新数据没有足够的元素，插入新元素，并将元素赋予新的数据,enter部分的处理方法是添加元素后再修改内容
+                enter_lines.append("line")
+                    .attr("stroke",1000)
+                    .attr("class","Edge")
+                    .attr("transform",offset)
                     // .attr("transform","translate(30,50)")
                     // .attr('r',10)
                     // .attr('cx',function(d){return XScale(0)})
@@ -189,8 +215,30 @@
                     // .attr('cx',function(d){return XScale(d.x)})
                     // .attr('cy',function(d){return YScale(d.y)})
                 
+                enter_nodes.append("circle")                  
+                    .attr("transform",offset)
+                    .attr("r",5)
+                    .style("fill",function(d,i){
+                        return color(i);
+                    })
+                    // .on("mouseover",function(d){mouseover_node(d);})
+                    // .on("mouseout", function(d){mouseout_node(d);})
+                    // .call(force.drag);  //使得节点能够拖动;
+
+                enter_nodes.append("text")
+                    .attr("font-size","7px")
+                    .attr("transform",offset)
+                    .style("fill", "black")
+                    .attr("dx", 20)
+                    .attr("dy", 8)
+                    .text(function(d){
+                        return d.name;
+                    });
+
                 //只更新xy坐标
                 update_lines.transition()
+                update_nodes.transition()
+                update_texts.transition()
                     // .duration(1000)
                     // .attr('cx',function(d){return XScale(d.x)})
                     // .attr('cy',function(d){return YScale(d.y)});
@@ -198,20 +246,32 @@
                 //减少了数据，数据小于元素（图形），删除元素就行
                 exit_lines.attr("fill-opacity",1.0)
                     .transition()
-                    //.duration(1000)
+                    .duration(1000)
                     .attr("fill-opacity",0.0)
                 exit_nodes.attr("fill-opacity",1.0)
                     .transition()
-                    //.duration(1000)
+                    .duration(1000)
                     .attr("fill-opacity",0.0)
-                //.attr('cx',function(d){return XScale(0)})
-                //.attr('cy',function(d){return YScale(0)});
-                //remove();
+                
+                exit_texts.attr("fill-opacity",1.0)
+                    .transition()
+                    .duration(1000)
+                    .attr("fill-opacity",0.0)
+                    //.attr('cx',function(d){return XScale(0)})
+                    //.attr('cy',function(d){return YScale(0)});
+                    
+                //remove;
+                //exit部分的处理方法是删除
+                exit_lines.remove();
+                exit_nodes.remove();
+                exit_texts.remove();
 
             }
 
         </script>
         <button onclick="update()">update</button>
+        <button onclick="add()">add</button>
+        <button onclick="decrease()">decrease</button>
 
     </body>
 </html>
