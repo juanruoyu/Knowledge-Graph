@@ -184,7 +184,7 @@
                     .nodes(dataset.nodes) //指定节点数组
                     .links(dataset.edges) //指定连线数组
                     .size([1100,1080]) //指定作用域范围
-                    .linkDistance(60) //指定连线长度
+                    .linkDistance(70) //指定连线长度
                     .charge([-400]); //相互之间的作用力;
                     force.start();
                 
@@ -226,7 +226,9 @@
                     .style("stroke-width", 1)
                     .attr("cx",function(d){return d.x;})
                     .attr("cy",function(d){return d.y;})
-
+                    .on("mouseover",function(d){mouseover_node(d);})
+                    .on("mouseout", function(d){mouseout_node(d);})
+                    .call(force.drag);  //使得节点能够拖动
                     
                 enter_nodes.append("text")
                     .attr("transform",offset)
@@ -240,6 +242,67 @@
                     .style("fill-opacity", 1)
                     .attr("x",function(d){return d.x;})
                     .attr("y",function(d){return d.y;})
+                console.log(enter_lines,enter_nodes,enter_texts)
+                force.on("tick", function(){ //对于每一个时间间隔
+                    //更新连线坐标
+                    a = d3.selectAll("line")
+                    a.attr("x1",function(d){ return d.source.x; })
+                        .attr("y1",function(d){ return d.source.y; })
+                        .attr("x2",function(d){ return d.target.x; })
+                        .attr("y2",function(d){ return d.target.y; });
+
+                    //更新节点坐标
+                    b = d3.selectAll("circle")
+                    b.attr("cx",function(d){ return d.x; })
+                        .attr("cy",function(d){ return d.y; });
+
+                    //更新文字坐标
+                    c = d3.selectAll("text")
+                    c.attr("x", function(d){ return d.x; })
+                        .attr("y", function(d){ return d.y; });
+                });
+
+                var mouseout_node = function(z){
+                    a = d3.selectAll("line")
+                    b = d3.selectAll("circle")
+                    c = d3.selectAll("text")
+
+                    a.style("stroke-opacity", 0.2);
+                    b.style("stroke-width", 1)
+                        .attr("r",5)
+                    c.attr("font-size", 10)
+                        .style("fill-opacity", 1)
+                };
+
+                var mouseover_node = function(z){
+                    var neighbors = {};
+                    a = d3.selectAll("line")
+                    b = d3.selectAll("circle")
+                    c = d3.selectAll("text")
+                    neighbors[z.index] = true;
+                    a.filter(function(d){
+                        if (d.source == z) {
+                            neighbors[d.target.index] = true
+                            return true
+                        } else if (d.target == z) {
+                            neighbors[d.source.index] = true
+                            return true
+                        } else {
+                            return false
+                        }
+                    })
+                        .style("stroke-opacity", 1);
+
+                    b.filter(function(d){ return neighbors[d.index] })
+                        .style("stroke-width", 3)
+                        .attr("r" ,Math.ceil(Math.random() * 10+10));
+
+                    c.filter(function(d){ return !neighbors[d.index] })
+                        .style("fill-opacity", 0.2);
+
+                    c.filter(function(d){ return neighbors[d.index] })
+                        .attr("font-size", "30px")
+                };
 
                 //只更新xy坐标
                 update_lines.transition()
@@ -251,7 +314,7 @@
                     .transition()
                     .duration(1000)
                     .attr("fill-opacity",0.0)
-                    
+
                 exit_nodes.attr("fill-opacity",1.0)
                     .transition()
                     .duration(1000)
