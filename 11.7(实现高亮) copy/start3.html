@@ -223,19 +223,23 @@
                     })
                     .attr("transform",offset)
                     .attr("r",5)
-                    .style("fill",function(d,i){
-                        return color(i);
-                    })
+                    .style("stroke-width", 1)
+                    .attr("cx",function(d){return d.x;})
+                    .attr("cy",function(d){return d.y;})
+
                     
                 enter_nodes.append("text")
                     .attr("transform",offset)
                     .style("fill", "black")
                     .attr("dx", 20)
                     .attr("dy", 8)
-                    .attr("font-size","7px")
+                    .attr("font-size","10px")
                     .text(function(d){
                         return d.name;
-                    });
+                    })
+                    .style("fill-opacity", 1)
+                    .attr("x",function(d){return d.x;})
+                    .attr("y",function(d){return d.y;})
 
                 //只更新xy坐标
                 update_lines.transition()
@@ -247,6 +251,7 @@
                     .transition()
                     .duration(1000)
                     .attr("fill-opacity",0.0)
+                    
                 exit_nodes.attr("fill-opacity",1.0)
                     .transition()
                     .duration(1000)
