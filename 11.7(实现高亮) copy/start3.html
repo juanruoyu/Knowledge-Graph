@@ -178,7 +178,8 @@
             
             function Show_select_Points(dataset, bigsize){
                 var svg = d3.selectAll("svg")
-                if (bigsize) {v_force = -2500}
+                //if (bigsize) {v_force = -2500}
+                v_force = -400
                 var force = d3.layout.force()
                     .nodes(dataset.nodes) //指定节点数组
                     .links(dataset.edges) //指定连线数组
@@ -228,15 +229,16 @@
                     .on("mouseover",function(d){mouseover_node(d);})
                     .on("mouseout", function(d){mouseout_node(d);})
                     .call(force.drag);  //使得节点能够拖动
-                if (!bigsize){
-                    console.log('aaaaa')
-                    c = d3.selectAll("circle")
-                    t = d3.selectAll("text")
-                    l = d3.selectAll("line")
-                    c.attr("r" , 5)
-                    t.attr("font-size", "10px")
-                    l.style("stroke-width",0.8)
-                }    
+                //TODO 怎样添加数据
+                    // if (!bigsize){
+                //     console.log('aaaaa')
+                //     c = d3.selectAll("circle")
+                //     t = d3.selectAll("text")
+                //     l = d3.selectAll("line")
+                //     c.attr("r" , 5)
+                //     t.attr("font-size", "10px")
+                //     l.style("stroke-width",0.8)
+                // }    
                 enter_nodes.append("text")
                     .attr("transform",offset)
                     .style("fill", "black")
