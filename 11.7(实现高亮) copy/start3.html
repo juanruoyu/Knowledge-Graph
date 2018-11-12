@@ -187,7 +187,8 @@
                     .linkDistance(60) //指定连线长度
                     .charge([-400]); //相互之间的作用力;
                     force.start();
-
+                
+                //绑定数据
                 var update_lines = svg.selectAll("line")
                     .data(dataset.edges);
                 var update_nodes = svg.selectAll('circle')
@@ -197,15 +198,11 @@
                 console.log('test',dataset)
                 
                 //绑定数据后，分别获取update和enter部分
-                var enter_lines = update_lines.enter()
-                var enter_nodes = update_nodes.enter()
-                var enter_texts = update_texts.enter()
-
-                //update部分的处理方法是直接修改内容
-                //update.text( function(d){ return d; } );
-
+                var enter_lines = update_lines.enter();
                 var exit_lines = update_lines.exit();
+                var enter_nodes = update_nodes.enter();
                 var exit_nodes = update_nodes.exit();
+                var enter_texts = update_texts.enter();
                 var exit_texts = update_texts.exit();
 
                 offset = "translate(10,-100)"
@@ -214,29 +211,28 @@
                     .attr("stroke",1000)
                     .attr("class","Edge")
                     .attr("transform",offset)
-                    // .attr("transform","translate(30,50)")
-                    // .attr('r',10)
-                    // .attr('cx',function(d){return XScale(0)})
-                    // .attr('cy',function(d){return YScale(0)})
-                    // .transition()
-                    // .duration(1000)
-                    // .attr('cx',function(d){return XScale(d.x)})
-                    // .attr('cy',function(d){return YScale(d.y)})
+                    .attr("x1",function(d){ return d.source.x; })
+                    .attr("y1",function(d){ return d.source.y; })
+                    .attr("x2",function(d){ return d.target.x; })
+                    .attr("y2",function(d){ return d.target.y; })
                 
+                var color = d3.scale.category20();
                 enter_nodes.append("circle")                  
+                    .style("fill",function(d,i){
+                        return color(i);
+                    })
                     .attr("transform",offset)
                     .attr("r",5)
-         
-                    // .on("mouseover",function(d){mouseover_node(d);})
-                    // .on("mouseout", function(d){mouseout_node(d);})
-                    // .call(force.drag);  //使得节点能够拖动;
-
+                    .style("fill",function(d,i){
+                        return color(i);
+                    })
+                    
                 enter_nodes.append("text")
-                    .attr("font-size","7px")
                     .attr("transform",offset)
                     .style("fill", "black")
                     .attr("dx", 20)
                     .attr("dy", 8)
+                    .attr("font-size","7px")
                     .text(function(d){
                         return d.name;
                     });
@@ -244,10 +240,7 @@
                 //只更新xy坐标
                 update_lines.transition()
                 update_nodes.transition()
-                update_texts.transition()
-                    // .duration(1000)
-                    // .attr('cx',function(d){return XScale(d.x)})
-                    // .attr('cy',function(d){return YScale(d.y)});
+                update_texts.transition()  
                 
                 //减少了数据，数据小于元素（图形），删除元素就行
                 exit_lines.attr("fill-opacity",1.0)
