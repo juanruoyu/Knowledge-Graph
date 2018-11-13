@@ -20,6 +20,9 @@
                 float:right;
                 padding:10px;	      
             }
+
+
+         }
     </style>
     
     <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
@@ -33,12 +36,12 @@
         <nav class="navbar nav-default" role="navigation" style="background-color: grey; max-height: 60px;">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
-                    <p style="color: white"> Knowlege Graph </p></a>
+                    <p style="color: black"> Knowlege Graph </p></a>
             </div>
             <div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="http://vis.cse.ust.hk/"  style="color: #ffffff">About Us</a></li>
-                    <li><a href="#"  style="color: #ffffff">Help</a></li>
+                    <li><a href="http://vis.cse.ust.hk/"  style="color: black">About Us</a></li>
+                    <li><a href="#"  style="color: black">Help</a></li>
                 </ul>
             </div>
         </nav>
@@ -46,14 +49,6 @@
         <div id="right_select_box">
             <div id= "col-sm-3 col-sm-offset-9 col-md-3 col-md-offset-9 sidebar" ng-class="{invisible: uiConfig.hideControlPanel}">
                 <script src="scripts/controller/rightCtrl.js"></script>
-                <!-- <div ng-app="myApp" ng-controller="rightCtrl">
- 
-                        cc:<input type="text" ng-model="input1"><br>
-                        jry: <input type="text" ng-model="lastName"><br>
-                        <br>
-                        姓名: {{output()}}
-                         
-                </div>     -->
   
                 <div ng-include src="'views/rightSidebar.html'" class="ng-scope">rightSidebar</div>
                     <!-- need add rightctrl function ---------------------->
@@ -66,12 +61,107 @@
                         </div>
                         <div ng-if="dataLoadFlag == 1" class="ng-scope">
                             <div id="searchWrapper" class="queryWarpper">
-                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Graph node name" style="width:63%;display:inline" ng-model="querData.searchText">
-                                <button type="button" class="btn btn-primary" style="display: inline" ng-click="search()"> Search</button>
+                                <input type="text" id="txt" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Graph node name" style="width:63%;display:inline" ng-model="querData.searchText">
+                                <button type="button" id="btn" class="btn btn-primary" style="display: inline" ng-click="search()"> Search</button>
                                 <button type="button" class="btn btn-primary" style="display: inline" ng-click="reset()"> Reset</button>
+                                <ul id="list"></ul>
                             </div>
                         </div>
-                    </div>  
+                    </div>
+                <script>
+
+                    var oTxt = document.getElementById('txt');
+                    var oBtn = document.getElementById('btn');
+                    var oList = document.getElementById('list');
+
+                    var fruits = ["Function","function","vertical line test","piecewise function","step function","葡萄","柠檬","橘子","草莓","草莓子","草拟吗","s","ssr"];
+                    //点击事件
+                    oBtn.addEventListener('click', function(){
+                        var keyWord = oTxt.value;
+                        // var fruitList = searchByIndexOf(keyWord,fruits);
+                        console.log(fruitList);
+                        var fruitList = searchByRegExp(keyWord, fruits);
+                        renderFruits(fruitList);
+                    }, false);
+                    //回车查询
+                    oTxt.addEventListener('keydown', function(e){
+                        if(e.keyCode == 13){
+                            var keyWord = oTxt.value;
+                            // var fruitList = searchByIndexOf(keyWord,fruits);
+                            var fruitList = searchByRegExp(keyWord, fruits);
+                            renderFruits(fruitList);
+                        }
+                    }, false);
+                    var cpLock = false;
+                    $('#txt').on('compositionstart', function () {
+                        cpLock = true;
+                        console.log("不搜索")
+                    });
+                    $('#txt').on('compositionend', function () {
+                        cpLock = false;
+                        console.log("汉字搜索");
+                        var keyWord = oTxt.value;
+                        // var fruitList = searchByIndexOf(keyWord,fruits);
+                        var fruitList = searchByRegExp(keyWord, fruits);
+                        renderFruits(fruitList);
+                    });
+                    $('#txt').on('input', function () {
+                        if (!cpLock) {
+                            console.log("字母搜索")
+                            var keyWord = oTxt.value;
+                            // var fruitList = searchByIndexOf(keyWord,fruits);
+                            var fruitList = searchByRegExp(keyWord, fruits);
+                            renderFruits(fruitList);
+                        }
+                    });
+                    function renderFruits(list){
+                        if(!(list instanceof Array)){
+                            return ;
+                        }
+                        oList.innerHTML = '';
+                        var len = list.length;
+                        var item = null;
+                        for(var i=0;i<len;i++){
+                            item = document.createElement('li');
+                            item.innerHTML = list[i];
+                            oList.appendChild(item);
+                        }
+                    }
+                    //模糊匹配的时候如果不区分大小写，可以使用toLowerCase()或者toUpperCase()转换之后去匹配。
+
+                    //模糊查询1:利用字符串的indexOf方法
+                    function searchByIndexOf(keyWord, list){
+                        if(!(list instanceof Array)){
+                            return ;
+                        }
+                        var len = list.length;
+                        var arr = [];
+                        for(var i=0;i<len;i++){
+                            //如果字符串中不包含目标字符会返回-1
+                            if(list[i].indexOf(keyWord)>=0){
+                                arr.push(list[i]);
+                            }
+                        }
+                        return arr;
+                    }
+                    //正则匹配
+                    function searchByRegExp(keyWord, list){
+                        if(!(list instanceof Array)){
+                            return ;
+                        }
+                        var len = list.length;
+                        var arr = [];
+                        var reg = new RegExp(keyWord);
+                        for(var i=0;i<len;i++){
+                            //如果字符串中不包含目标字符会返回-1
+                            if(list[i].match(reg)){
+                                arr.push(list[i]);
+                            }
+                        }
+                        return arr;
+                    }
+                    renderFruits(fruits);
+                </script>
                     <div>
                         <!-- need to add tablectrl  highlight-node-->
                         <div table-directive table-config ="tableConfig" table-data="currentNodes" ng-controller="tableCtrl" highlight-node="highlightNode(node)" class="ng-score ng-isolate-scope"> 
