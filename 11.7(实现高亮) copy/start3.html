@@ -21,8 +21,6 @@
                 padding:10px;	      
             }
 
-
-         }
     </style>
     
     <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
@@ -63,7 +61,7 @@
                             <div id="searchWrapper" class="queryWarpper">
                                 <input type="text" id="txt" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Graph node name" style="width:63%;display:inline" ng-model="querData.searchText">
                                 <button type="button" id="btn" class="btn btn-primary" style="display: inline" ng-click="search()"> Search</button>
-                                <button type="button" class="btn btn-primary" style="display: inline" ng-click="reset()"> Reset</button>
+                                <!-- <button type="button" class="btn btn-primary" style="display: inline" ng-click="reset()"> Reset</button> -->
                                 <ul id="list"></ul>
                             </div>
                         </div>
@@ -73,7 +71,8 @@
                     var oTxt = document.getElementById('txt');
                     var oBtn = document.getElementById('btn');
                     var oList = document.getElementById('list');
-
+                    
+                    //global_datas = JSON.parse(localStorage.getItem("global_datas"));
                     var fruits = ["Function","function","vertical line test","piecewise function","step function","葡萄","柠檬","橘子","草莓","草莓子","草拟吗","s","ssr"];
                     //点击事件
                     oBtn.addEventListener('click', function(){
