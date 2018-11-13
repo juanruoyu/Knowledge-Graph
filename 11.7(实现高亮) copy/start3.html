@@ -71,22 +71,27 @@
                     var oTxt = document.getElementById('txt');
                     var oBtn = document.getElementById('btn');
                     var oList = document.getElementById('list');
-                    
-                    //global_datas = JSON.parse(localStorage.getItem("global_datas"));
-                    var fruits = ["Function","function","vertical line test","piecewise function","step function","葡萄","柠檬","橘子","草莓","草莓子","草拟吗","s","ssr"];
+                    var fruits;
+                    global_datas = JSON.parse(localStorage.getItem("global_datas"));
+                    //var fruits = ["Function","function","vertical line test","piecewise function","step function","葡萄","柠檬","橘子","草莓","草莓子","草拟吗","s","ssr"];
                     //点击事件
                     oBtn.addEventListener('click', function(){
                         var keyWord = oTxt.value;
+                        global_datas = JSON.parse(localStorage.getItem("global_datas"));
+                        fruits = global_datas.nodes
                         // var fruitList = searchByIndexOf(keyWord,fruits);
-                        console.log(fruitList);
+                        //console.log(fruits);
                         var fruitList = searchByRegExp(keyWord, fruits);
                         renderFruits(fruitList);
+                        //console.log(fruitList,nodes);
                     }, false);
                     //回车查询
                     oTxt.addEventListener('keydown', function(e){
                         if(e.keyCode == 13){
                             var keyWord = oTxt.value;
-                            // var fruitList = searchByIndexOf(keyWord,fruits);
+                            global_datas = JSON.parse(localStorage.getItem("global_datas"));
+                            fruits = global_datas.nodes
+                            //var fruitList = searchByIndexOf(keyWord,fruits);
                             var fruitList = searchByRegExp(keyWord, fruits);
                             renderFruits(fruitList);
                         }
@@ -148,13 +153,13 @@
                         if(!(list instanceof Array)){
                             return ;
                         }
-                        var len = list.length;
+                        
                         var arr = [];
                         var reg = new RegExp(keyWord);
-                        for(var i=0;i<len;i++){
+                        for(var i in list){
                             //如果字符串中不包含目标字符会返回-1
-                            if(list[i].match(reg)){
-                                arr.push(list[i]);
+                            if(list[i].name.match(reg)){
+                                arr.push(list[i].name);
                             }
                         }
                         return arr;
