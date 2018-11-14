@@ -159,7 +159,7 @@
             //需要jquery动态添加 http://www.w3school.com.cn/jquery/event_delegate.asp
             $("#searchWrapper").delegate("#mytable","click",function(){
                 console.log($(this).text())
-                update($(this).text())
+                update_1($(this).text())
 
             })
             
