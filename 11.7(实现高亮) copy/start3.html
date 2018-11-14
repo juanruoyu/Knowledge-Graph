@@ -155,6 +155,7 @@
                     //var fruitList = searchByIndexOf(keyWord,fruits);
                     var fruitList = searchByRegExp(keyWord, fruits);
                     renderFruits(fruitList);
+//                    console.log("finsiah")
                 }
             }, false);
             var cpLock = false;
@@ -188,6 +189,7 @@
                 var item = null;
                 for(var i=0;i<len;i++){
                     item = document.createElement('li');
+                    item.setAttribute("id", "mytable");
                     item.innerHTML = list[i];
                     oList.appendChild(item);
                 }

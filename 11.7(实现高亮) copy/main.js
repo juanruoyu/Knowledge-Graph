@@ -9,6 +9,8 @@
                 global_datas = new_data;
                 localStorage.setItem("global_datas",JSON.stringify(global_datas)); //存入 参数： 1.调用的值 2.所要存入的数据 
                 visiual(new_data);
+                
+               
             });
 
             function generate_nodes_edges(datas){
@@ -154,3 +156,22 @@
                 };
 
             }
+            //需要jquery动态添加 http://www.w3school.com.cn/jquery/event_delegate.asp
+            $("#searchWrapper").delegate("#mytable","click",function(){
+                console.log($(this).text())
+                update($(this).text())
+
+            })
+            
+            // var ta = d3.select("#searchWrapper")
+            // console.log(ta)
+            // var lii 
+            // ta.on("click",function(d,i){
+            //     $("#mytable").hide()
+            //     console.log("dasdas")   
+            //     lii = ta.selectAll("#table") 
+            //     // d3.select(this)
+            //     //     .text("abcd")
+            //     }
+            // )
+            
