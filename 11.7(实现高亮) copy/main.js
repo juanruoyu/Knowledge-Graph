@@ -159,7 +159,15 @@
             //需要jquery动态添加 http://www.w3school.com.cn/jquery/event_delegate.asp
             $("#searchWrapper").delegate("#mytable","click",function(){
                 console.log($(this).text())
-                update_1($(this).text())
+                //var txt1="<li>Text.sdasdas"; 
+                var txt1 = "<div id=input_text> <input type='text'> <input type='button' value='markdown' ></div>";    
+                
+                console.log("aaaaaaa",this.childNodes.length)//nodeName)
+                //onclick='update_1'
+                if (this.childNodes.length == 1){
+                    $(this).append(txt1);
+                    update_1($(this).text())
+                }
 
             })
             

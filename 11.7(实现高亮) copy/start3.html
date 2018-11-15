@@ -260,7 +260,7 @@
                 nodes = []//[{"name":name}];
                 edges = []//[{"source":0,"target":0}];
                 
-                console.log("index", index )
+                //console.log("index", index )
                 for ( i  in ori_edges){
                     if (ori_edges[i].source == index && ori_edges[i].source != ori_edges[i].target){
                         pname =ori_nodes[ori_edges[i].target]
@@ -278,12 +278,12 @@
                 }
                 
                 for (n in nodes){
-                    console.log('nodes',nodes[n].name)
+                    //console.log('nodes',nodes[n].name)
                     if (nodes[n].name != name){
                         edges.push({"source":Number(n), "target":Number(index)})
                     }
                 }
-                console.log("without push",nodes,edges)
+                //console.log("without push",nodes,edges)
                 // for(var j=0 ;j<5; j++){
                 //     nodes.push(datas.nodes[j])    
                 //     edges.push({
