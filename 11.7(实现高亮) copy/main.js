@@ -156,11 +156,12 @@
                 };
 
             }
+            var text_id = 0 ;
             //需要jquery动态添加 http://www.w3school.com.cn/jquery/event_delegate.asp
             $("#searchWrapper").delegate("#mytable","click",function(){
                 console.log($(this).text())
                 //var txt1="<li>Text.sdasdas"; 
-                var txt1 = "<div id=input_text> <input type='text'> <input type='button' value='markdown' ></div>";    
+                var txt1 = "<div id= 'text_id' > <input type='text'> <input type='button' value='save and close' index=‘text_id’ onclick='deleteText(this)'></div>";    
                 
                 console.log("aaaaaaa",this.childNodes.length)//nodeName)
                 //onclick='update_1'
@@ -170,6 +171,14 @@
                 }
 
             })
+            
+            function deleteText(e){
+                var child=document.getElementById("text_id");
+                //save sth
+                console.log(e)
+                
+                child.parentNode.removeChild(child);
+            }
             
             // var ta = d3.select("#searchWrapper")
             // console.log(ta)
