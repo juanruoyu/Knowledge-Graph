@@ -161,7 +161,7 @@
             $("#searchWrapper").delegate("#mytable","click",function(){
                 console.log($(this).text())
                 //var txt1="<li>Text.sdasdas"; 
-                var txt1 = "<div id= 'text_id' > <input type='text'> <input type='button' value='save and close' index=‘text_id’ onclick='deleteText(this)'></div>";    
+                var txt1 = "<div id= 'text_id' > <input type='text' onkeydown='getKey(this)'> <input type='button' value='save and close' index=‘text_id’ onclick='deleteText(this)'></div>";    
                 
                 console.log("aaaaaaa",this.childNodes.length)//nodeName)
                 //onclick='update_1'
@@ -171,13 +171,31 @@
                 }
 
             })
+            function getKey(e){
+                if(event.keyCode==13){
+                    //save info 
+                    console.log($(e).val())
+                    alert( $(e).val() + ' save done');
+                }   
+            }
+            
             
             function deleteText(e){
                 var child=document.getElementById("text_id");
                 //save sth
-                console.log(e)
                 
-                child.parentNode.removeChild(child);
+                //因为是动态添加的元素所以需要通过父节点来删除，不能直接通过$($(e)prev[0]).remove
+                getKey();
+                //save info
+                console.log($($(e).prev()[0]).val())
+                $(e).parent().remove()
+                alert( $(e).val() + ' save done');
+                //$(e).remove()
+                //$($(e).prev()[0]).empty()
+                //$(e).hide()
+                //$(e).prev().hide()
+
+                //child.parentNode.removeChild(child);
             }
             
             // var ta = d3.select("#searchWrapper")
