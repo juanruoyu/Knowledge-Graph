@@ -61,7 +61,7 @@
                             <div id="searchWrapper" class="queryWarpper">
                                 <input type="text" id="txt" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Graph node name" style="width:63%;display:inline" ng-model="querData.searchText">
                                 <button type="button" id="btn" class="btn btn-primary" style="display: inline" ng-click="search()"> Search</button>
-                                <!-- <button type="button" class="btn btn-primary" style="display: inline" ng-click="reset()"> Reset</button> -->
+                                <button type="button" class="btn btn-primary" style="display: inline" onclick="recover()"> Reset</button>
                                 <ul id="list"></ul>
                             </div>
                         </div>
@@ -189,7 +189,9 @@
                 var item = null;
                 for(var i=0;i<len;i++){
                     item = document.createElement('li');
+                    //<p> Node Name: {{graphnode1}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
                     item.setAttribute("id", "mytable");
+                    //item.setAttribute("style", "font-size:10px;font-weight:bold;text-align:center")
                     item.innerHTML = list[i];
                     oList.appendChild(item);
                 }
@@ -492,9 +494,9 @@
             }
 
         </script>
-        <button onclick="update()">update</button>
+        <!-- <button onclick="update()">update</button>
         <button onclick="recover()">recover</button>
-        <button onclick="decrease()">decrease</button>
+        <button onclick="decrease()">decrease</button> -->
 
     </body>
 </html>
