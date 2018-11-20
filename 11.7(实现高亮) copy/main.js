@@ -80,7 +80,11 @@
                     .enter()
                     .append("circle")
                     .attr("transform",offset)
-                    .attr("r",5)
+                    //.attr("r",5)
+                    .attr("r", function(d) {
+                        var minRadius = 5;
+                        return minRadius + (d.weight*0.2);
+                      })
                     .style("fill",function(d,i){
                         return color(i);
                     })
@@ -124,7 +128,11 @@
                 var mouseout_node = function(z){
                     svg_edges.style("stroke-opacity", 0.2);
                     svg_nodes.style("stroke-width", 1)
-                        .attr("r",5)
+                        // .attr("r",5)
+                        .attr("r", function(d) {
+                            var minRadius = 5;
+                            return minRadius + (d.weight*0.2);
+                          })
                     svg_texts.attr("font-size", 10)
                         .style("fill-opacity", 1)
                 };
