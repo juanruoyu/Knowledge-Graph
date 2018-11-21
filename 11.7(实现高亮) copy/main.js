@@ -169,15 +169,18 @@
             var text_id = 0 ;
             //需要jquery动态添加 http://www.w3school.com.cn/jquery/event_delegate.asp
             $("#searchWrapper").delegate("#mytable","click",function(){
-                console.log($(this).text())
-                //var txt1="<li>Text.sdasdas"; 
+                console.log('debug', $(this).text(),'a','b')
+                node_name = $(this).text()
                 var txt1 = "<div id= 'text_id' > <input type='text' onkeydown='getKey(this)'> <input type='button' value='save and close' index=‘text_id’ onclick='deleteText(this)'></div>";    
                 
-                console.log("aaaaaaa",this.childNodes.length)//nodeName)
+                //console.log("aaaaaaa",this.childNodes.length)//nodeName)
                 //onclick='update_1'
                 if (this.childNodes.length == 1){
                     $(this).append(txt1);
-                    update_1($(this).text())
+                    //console.log('xxxxxxx',node_name,'aa','bb')
+                    decrease();
+                    console.log("clear all")
+                    update_1(node_name);
                 }
 
             })

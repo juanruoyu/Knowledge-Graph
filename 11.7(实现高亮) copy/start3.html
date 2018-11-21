@@ -293,12 +293,20 @@
                 var datas = JSON.parse(localStorage.getItem("global_datas"));
                 var ori_nodes = datas.nodes;
                 var ori_edges = datas.edges;
-                var index = 0; 
+                var index = -1; 
                 
-                nodes = []//[{"name":name}];
+                for (s in global_datas.nodes ){
+                    //console.log(global_datas.nodes[s], name)
+                    if (global_datas.nodes[s].name == name){
+                    index = Number(s);
+                    console.log("find this",index);
+                    break
+                    }
+                }
+                nodes = [{"name":name}];
                 edges = []//[{"source":0,"target":0}];
                 
-                //console.log("index", index )
+                // find all edges, node and push into edges and nodes
                 for ( i  in ori_edges){
                     if (ori_edges[i].source == index && ori_edges[i].source != ori_edges[i].target){
                         pname =ori_nodes[ori_edges[i].target]
@@ -314,11 +322,12 @@
                         continue
                     }                     
                 }
-                
+                console.log("should link",nodes)
+                //build link between targets and source 
                 for (n in nodes){
                     //console.log('nodes',nodes[n].name)
                     if (nodes[n].name != name){
-                        edges.push({"source":Number(n), "target":Number(index)})
+                        edges.push({"source":Number(n), "target":Number(0)})
                     }
                 }
                 //console.log("without push",nodes,edges)
@@ -330,12 +339,13 @@
                 //     })
                 // }
                 // console.log("push", nodes.length,edges.length)
-                d = {"nodes":nodes,"edges":edges}               
+                d = {"nodes":nodes,"edges":edges}  
                 Show_select_Points(d, true);
 
             }
             //增加数据
             function recover(){
+                decrease();
                 var datas = JSON.parse(localStorage.getItem("global_datas"));
                 d = {"nodes":datas.nodes,"edges":datas.edges}               
                 Show_select_Points(d, false);
