@@ -74,7 +74,7 @@
                         <div table-directive table-config ="tableConfig" table-data="currentNodes" ng-controller="tableCtrl" highlight-node="highlightNode(node)" class="ng-score ng-isolate-scope"> 
                             <div id = "table-section">
                                 <div class="info-header">
-                                    <h5>Graph Nodes List:</h5>
+                                    <!-- <h5>Graph Nodes List:</h5> -->
                                 </div>
                                 <div class="table-view ng-scope" ng-if="tableData !=undefined" >
                                     <table class="table table-bordered table-condensed">
@@ -86,12 +86,23 @@
                                         <tbody>
                                             <tr ng-repeat= "node in tableData" class="selectable ng-scope" ng-click="highlightNode({node.node})">
                                                 <td  ng-app="myApp3" ng-init="graphnode1='Function'" ng-controller="cc">
-                                                    <p> Node Name: {{graphnode1}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
-                                                    <p> Node Name: {{graphnode2}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
-                                                    <p> Node Name: {{graphnode3}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
-                                                    <p> Node Name: {{graphnode4}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
-                                                    <p> Node Name: {{graphnode5}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
-
+                                                    <ul>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode1}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode2}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode3}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode4}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode5}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode6}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode7}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode8}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode9}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode10}} </li>
+                                                        <!-- <p> Node Name: {{graphnode1}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
+                                                        <p> Node Name: {{graphnode2}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
+                                                        <p> Node Name: {{graphnode3}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
+                                                        <p> Node Name: {{graphnode4}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
+                                                        <p> Node Name: {{graphnode5}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>   -->
+                                                    </ul>
                                                 </td>
                                                 
                                             <script> 
@@ -108,6 +119,11 @@
                                                         $scope.graphnode3 = global_datas.nodes[2].name;
                                                         $scope.graphnode4 = global_datas.nodes[3].name;
                                                         $scope.graphnode5 = global_datas.nodes[4].name;
+                                                        $scope.graphnode6 = global_datas.nodes[5].name;
+                                                        $scope.graphnode7 = global_datas.nodes[6].name;
+                                                        $scope.graphnode8 = global_datas.nodes[7].name;
+                                                        $scope.graphnode9 = global_datas.nodes[8].name;
+                                                        $scope.graphnode10 = global_datas.nodes[9].name;
 
 
                                                     });     
@@ -189,11 +205,27 @@
                 oList.innerHTML = '';
                 var len = list.length;
                 var item = null;
+                thread_item = document.createElement('thread')
+                tr_item = document.createElement('tr')
+                th_item = document.createElement('th')
+                th_item.setAttribute("style", "colspan=:1;width:100%;text-align:center") 
+                th_item.innerHTML = "Nodes"
+                tr_item.appendChild(th_item)
+                thread_item.append(tr_item)
+
+                // <thead>
+                //     <tr>
+                //         <th ng-style="{'width':tableConfig.thNodeWidth * 100 +'%'}" colspan="1" style="width:100%;text-align:center" >Nodes</th>
+                //     </tr>
+                // </thead>
+
+                oList.appendChild(thread_item)
+
                 for(var i=0;i<len;i++){
                     item = document.createElement('li');
                     //<p> Node Name: {{graphnode1}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
                     item.setAttribute("id", "mytable");
-                    //item.setAttribute("style", "font-size:10px;font-weight:bold;text-align:center")
+                    item.setAttribute("style", "font-size:16px")//;font-weight:bold;text-align:center")
                     item.innerHTML = list[i];
                     oList.appendChild(item);
                 }
