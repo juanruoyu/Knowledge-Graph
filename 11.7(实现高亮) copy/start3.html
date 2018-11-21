@@ -205,21 +205,23 @@
                 oList.innerHTML = '';
                 var len = list.length;
                 var item = null;
-                thread_item = document.createElement('thread')
-                tr_item = document.createElement('tr')
-                th_item = document.createElement('th')
-                th_item.setAttribute("style", "colspan=:1;width:100%;text-align:center") 
-                th_item.innerHTML = "Nodes"
-                tr_item.appendChild(th_item)
-                thread_item.append(tr_item)
-
+                
+                // thread_item = document.createElement('thread')
+                // tr_item = document.createElement('tr')
+                // th_item = document.createElement('th')
+                // th_item.setAttribute("style", "colspan=:1;width:100%;text-align:center") 
+                // th_item.innerHTML = "Nodes"
+                // tr_item.appendChild(th_item)
+                // thread_item.append(tr_item)
+                //oList.appendChild(thread_item)
+                
                 // <thead>
                 //     <tr>
                 //         <th ng-style="{'width':tableConfig.thNodeWidth * 100 +'%'}" colspan="1" style="width:100%;text-align:center" >Nodes</th>
                 //     </tr>
                 // </thead>
 
-                oList.appendChild(thread_item)
+                
 
                 for(var i=0;i<len;i++){
                     item = document.createElement('li');
