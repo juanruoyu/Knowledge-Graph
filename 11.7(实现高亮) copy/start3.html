@@ -23,6 +23,71 @@
                 padding:10px;	      
             }
 
+
+        /* header
+        {
+            font-family: 'Lobster', cursive;
+            text-align: center;
+            font-size: 25px;	
+        }
+
+        #info
+        {
+            font-size: 18px;
+            color: #555;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        a{
+            color: #074E8C;
+        } */
+
+        .scrollbar
+        {
+            margin-left: 30px;
+            float: right;
+            height: 420px;
+            width: 25px;
+            background: #eeeeee;
+            overflow-y: scroll;
+            margin-bottom: 25px;
+        }
+
+        .force-overflow
+        {
+            min-height: 450px;
+        }
+
+        /* #wrapper
+        {
+            text-align: center;
+            width: 500px;
+            margin: auto;
+        } */
+
+        #style-1::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            background-color: #eeeeee;
+        }
+
+        #style-1::-webkit-scrollbar
+        {
+            width: 12px;
+            background-color: #eeeeee;
+        }
+
+        #style-1::-webkit-scrollbar-thumb
+        {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #555;
+        }
+
+
+
     </style>
     
     <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
@@ -84,9 +149,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            
+
                                             <tr ng-repeat= "node in tableData" class="selectable ng-scope" ng-click="highlightNode({node.node})">
                                                 <td  ng-app="myApp3" ng-init="graphnode1='Function'" ng-controller="cc">
                                                     <ul>
+                                                        <div class="scrollbar" id="style-1">
+                                                            <div class="force-overflow"></div>
+                                                          </div>
                                                         <li style="font-size:16px;line-height:30px;">{{graphnode1}} </li>
                                                         <li style="font-size:16px;line-height:30px;">{{graphnode2}} </li>
                                                         <li style="font-size:16px;line-height:30px;">{{graphnode3}} </li>
@@ -97,6 +167,16 @@
                                                         <li style="font-size:16px;line-height:30px;">{{graphnode8}} </li>
                                                         <li style="font-size:16px;line-height:30px;">{{graphnode9}} </li>
                                                         <li style="font-size:16px;line-height:30px;">{{graphnode10}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode11}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode12}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode13}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode14}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode15}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode16}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode17}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode18}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode19}} </li>
+                                                        <li style="font-size:16px;line-height:30px;">{{graphnode20}} </li>
                                                         <!-- <p> Node Name: {{graphnode1}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
                                                         <p> Node Name: {{graphnode2}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
                                                         <p> Node Name: {{graphnode3}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
@@ -124,6 +204,16 @@
                                                         $scope.graphnode8 = global_datas.nodes[7].name;
                                                         $scope.graphnode9 = global_datas.nodes[8].name;
                                                         $scope.graphnode10 = global_datas.nodes[9].name;
+                                                        $scope.graphnode11 = global_datas.nodes[10].name;
+                                                        $scope.graphnode12 = global_datas.nodes[11].name;
+                                                        $scope.graphnode13 = global_datas.nodes[12].name;
+                                                        $scope.graphnode14 = global_datas.nodes[13].name;
+                                                        $scope.graphnode15 = global_datas.nodes[14].name;
+                                                        $scope.graphnode16 = global_datas.nodes[15].name;
+                                                        $scope.graphnode17 = global_datas.nodes[16].name;
+                                                        $scope.graphnode18 = global_datas.nodes[17].name;
+                                                        $scope.graphnode19 = global_datas.nodes[18].name;
+                                                        $scope.graphnode20 = global_datas.nodes[19].name;
 
 
                                                     });     
@@ -222,7 +312,7 @@
                 // </thead>
 
                 
-
+                
                 for(var i=0;i<len;i++){
                     item = document.createElement('li');
                     //<p> Node Name: {{graphnode1}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
@@ -266,6 +356,20 @@
                 return arr;
             }
             renderFruits(fruits);
+            
+            //$(window).scroll(function () {
+            $("div.scrollbar").scroll(function(){
+                //var t = document.documentElement.scrollTop || document.body.scrollTop;  
+                //var top_div = document.getElementById( "li" ); 
+                //console.log('xxxxxxxx',top_div)
+                $("li").css("display", "inline")//.fadeOut("slow");
+
+                // if( t >= 300 ) { 
+                //     top_div.style.display = "inline"; 
+                // } else { 
+                //     top_div.style.display = "none"; 
+                // } 
+            }) 
         </script>
         <script>
             //数据更新
@@ -552,7 +656,7 @@
                 exit_texts.remove();
 
             }
-
+            
         </script>
         <!-- <button onclick="update()">update</button>
         <button onclick="recover()">recover</button>
