@@ -159,27 +159,27 @@
                                                     <!-- <ul> -->
                                                     <div class="scrollbar" id="style-1">
                                                             <!-- <div class="force-overflow"></div> -->
-                                                          
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode1}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode2}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode3}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode4}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode5}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode6}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode7}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode8}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode9}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode10}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode11}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode12}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode13}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode14}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode15}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode16}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode17}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode18}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode19}} </li>
-                                                        <li style="font-size:16px;line-height:30px;">{{graphnode20}} </li>
+                                                        
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode1}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode2}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode3}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode4}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode5}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode6}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode7}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode8}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode9}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode10}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode11}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode12}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode13}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode14}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode15}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode16}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode17}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode18}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode19}} </li>
+                                                        <li name ="mytable" style="font-size:16px;line-height:30px;">{{graphnode20}} </li>
                                                         <!-- <p> Node Name: {{graphnode1}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
                                                         <p> Node Name: {{graphnode2}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
                                                         <p> Node Name: {{graphnode3}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
@@ -243,12 +243,14 @@
 
             var oTxt = document.getElementById('txt');
             var oBtn = document.getElementById('btn');
-            var oList = document.getElementById('list');
+            var oList = document.getElementById('style-1');
+            //var oList = $("#style-1")
             var fruits;
             global_datas = JSON.parse(localStorage.getItem("global_datas"));
             //var fruits = ["Function","function","vertical line test","piecewise function","step function","葡萄","柠檬","橘子","草莓","草莓子","草拟吗","s","ssr"];
             //点击事件
             oBtn.addEventListener('click', function(){
+                console.log("click")
                 var keyWord = oTxt.value;
                 global_datas = JSON.parse(localStorage.getItem("global_datas"));
                 fruits = global_datas.nodes
@@ -258,9 +260,11 @@
                 renderFruits(fruitList);
                 //console.log(fruitList,nodes);
             }, false);
+            
             //回车查询
             oTxt.addEventListener('keydown', function(e){
                 if(e.keyCode == 13){
+                    console.log("keydown")
                     var keyWord = oTxt.value;
                     global_datas = JSON.parse(localStorage.getItem("global_datas"));
                     fruits = global_datas.nodes
@@ -285,46 +289,80 @@
             });
             $('#txt').on('input', function () {
                 if (!cpLock) {
-                    console.log("字母搜索")
                     var keyWord = oTxt.value;
+                    console.log("字母搜索",keyWord)
                     // var fruitList = searchByIndexOf(keyWord,fruits);
                     var fruitList = searchByRegExp(keyWord, fruits);
                     renderFruits(fruitList);
                 }
             });
             function renderFruits(list){
+                
+
+                
                 if(!(list instanceof Array)){
                     return ;
                 }
-                oList.innerHTML = '';
+                //oList.innerHTML = '';
                 var len = list.length;
                 var item = null;
-                
-                // thread_item = document.createElement('thread')
-                // tr_item = document.createElement('tr')
-                // th_item = document.createElement('th')
-                // th_item.setAttribute("style", "colspan=:1;width:100%;text-align:center") 
-                // th_item.innerHTML = "Nodes"
-                // tr_item.appendChild(th_item)
-                // thread_item.append(tr_item)
-                //oList.appendChild(thread_item)
-                
-                // <thead>
-                //     <tr>
-                //         <th ng-style="{'width':tableConfig.thNodeWidth * 100 +'%'}" colspan="1" style="width:100%;text-align:center" >Nodes</th>
-                //     </tr>
-                // </thead>
+               
+                //items = document.getElementsByName("mytable");
+                items = $("#style-1").empty();
+                console.log("clear all");
+                for(var i = 0;i < len; i++){
+                        item = document.createElement('li');
+                        item.setAttribute("id", "mytable");
+                        item.setAttribute("style", "font-size:16px;line-height:30px;");
+                        item.innerHTML = list[i];
+                        oList.appendChild(item);
 
+                    }
                 
+                //$("#style-1").delegate("li[name]","click",function(){})
+                // console.log(items.length,len)
+
+                // var increase = len > items.length;
+                // if (increase ){
+                //     //console.log(items)
+                //     var i = 0
+                //     for(;i<items.length;i++){
+                //         items[i].setAttribute("style", "font-size:16px;line-height:30px;")//;font-weight:bold;text-align:center")
+                //         items[i].innerHTML = list[i];
+                //     }
+                //     console.log(i)
+                //     for(;i < len; i++){
+                //         item = document.createElement('li');
+                //         item.setAttribute("id", "mytable");
+                //         item.setAttribute("style", "font-size:16px;line-height:30px;");
+                //         item.innerHTML = list[i];
+                //         oList = $("li:last")
+                //         //console.log("add",list[i])
+                //         oList.append("<li> "+ list[i]+ "</li>");
+                //         //oList.appendChild(item);
+                //     }
+                // }
+                // else{
+                //     var i = 0; 
+                //     for(;i<len;i++){
+                //         items[i].innerHTML = list[i];
+                        
+                //     }
+                //     for (;i<items.length; i++){
+                //         console.log('remove',items[i].innerHTML)
+                //         items[i].parentNode.removeChild(items[i]);
+
+                //     }
+                // }
                 
-                for(var i=0;i<len;i++){
-                    item = document.createElement('li');
-                    //<p> Node Name: {{graphnode1}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
-                    item.setAttribute("id", "mytable");
-                    item.setAttribute("style", "font-size:16px")//;font-weight:bold;text-align:center")
-                    item.innerHTML = list[i];
-                    oList.appendChild(item);
-                }
+                // for(var i=0;i<len;i++){
+                //     item = document.createElement('li');
+                //     //<p> Node Name: {{graphnode1}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
+                //     item.setAttribute("id", "mytable");
+                //     item.setAttribute("style", "font-size:16px")//;font-weight:bold;text-align:center")
+                //     item.innerHTML = list[i];
+                //     oList.appendChild(item);
+                // }
             }
             //模糊匹配的时候如果不区分大小写，可以使用toLowerCase()或者toUpperCase()转换之后去匹配。
 
@@ -361,19 +399,6 @@
             }
             renderFruits(fruits);
             
-            //$(window).scroll(function () {
-            // $("div.scrollbar").scroll(function(){
-            //     //var t = document.documentElement.scrollTop || document.body.scrollTop;  
-            //     //var top_div = document.getElementById( "li" ); 
-            //     //console.log('xxxxxxxx',top_div)
-            //     //$("li").css("display", "inline")//.fadeOut("slow");
-
-            //     // if( t >= 300 ) { 
-            //     //     top_div.style.display = "inline"; 
-            //     // } else { 
-            //     //     top_div.style.display = "none"; 
-            //     // } 
-            // }) 
         </script>
         <script>
             //数据更新

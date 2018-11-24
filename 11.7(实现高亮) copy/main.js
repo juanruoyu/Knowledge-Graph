@@ -168,7 +168,7 @@
             }
             var text_id = 0 ;
             //需要jquery动态添加 http://www.w3school.com.cn/jquery/event_delegate.asp
-            $("#searchWrapper").delegate("#mytable","click",function(){
+            $("#style-1").delegate("li[name= 'mytable']","click",function(){
                 console.log('debug', $(this).text(),'a','b')
                 node_name = $(this).text()
                 var txt1 = "<div id= 'text_id' > <input type='text' onkeydown='getKey(this)'> <input type='button' value='save and close' index=‘text_id’ onclick='deleteText(this)'></div>";    
