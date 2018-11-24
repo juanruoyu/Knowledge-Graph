@@ -45,18 +45,21 @@
 
         .scrollbar
         {
-            margin-left: 30px;
+            margin-left: 20px;
             float: right;
             height: 420px;
-            width: 25px;
+            width: 230px;
             background: #eeeeee;
             overflow-y: scroll;
-            margin-bottom: 25px;
+            
+            /* overflow: scroll; */
+
+            margin-bottom: 500px;
         }
 
         .force-overflow
         {
-            min-height: 450px;
+            min-height: 420px;
         }
 
         /* #wrapper
@@ -151,12 +154,12 @@
                                         <tbody>
                                             
 
-                                            <tr ng-repeat= "node in tableData" class="selectable ng-scope" ng-click="highlightNode({node.node})">
+                                            <!-- <tr ng-repeat= "node in tableData" class="selectable ng-scope" ng-click="highlightNode({node.node})"> -->
                                                 <td  ng-app="myApp3" ng-init="graphnode1='Function'" ng-controller="cc">
-                                                    <ul>
-                                                        <div class="scrollbar" id="style-1">
-                                                            <div class="force-overflow"></div>
-                                                          </div>
+                                                    <!-- <ul> -->
+                                                    <div class="scrollbar" id="style-1">
+                                                            <!-- <div class="force-overflow"></div> -->
+                                                          
                                                         <li style="font-size:16px;line-height:30px;">{{graphnode1}} </li>
                                                         <li style="font-size:16px;line-height:30px;">{{graphnode2}} </li>
                                                         <li style="font-size:16px;line-height:30px;">{{graphnode3}} </li>
@@ -182,7 +185,8 @@
                                                         <p> Node Name: {{graphnode3}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
                                                         <p> Node Name: {{graphnode4}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>  
                                                         <p> Node Name: {{graphnode5}} <span style="font-size:18px;font-weight:bold;text-align:right"></span> </p>   -->
-                                                    </ul>
+                                                    </div>    
+                                                    <!-- </ul> -->
                                                 </td>
                                                 
                                             <script> 
@@ -218,7 +222,7 @@
 
                                                     });     
                                             </script>
-                                            </tr>
+                                            <!-- </tr> -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -358,18 +362,18 @@
             renderFruits(fruits);
             
             //$(window).scroll(function () {
-            $("div.scrollbar").scroll(function(){
-                //var t = document.documentElement.scrollTop || document.body.scrollTop;  
-                //var top_div = document.getElementById( "li" ); 
-                //console.log('xxxxxxxx',top_div)
-                $("li").css("display", "inline")//.fadeOut("slow");
+            // $("div.scrollbar").scroll(function(){
+            //     //var t = document.documentElement.scrollTop || document.body.scrollTop;  
+            //     //var top_div = document.getElementById( "li" ); 
+            //     //console.log('xxxxxxxx',top_div)
+            //     //$("li").css("display", "inline")//.fadeOut("slow");
 
-                // if( t >= 300 ) { 
-                //     top_div.style.display = "inline"; 
-                // } else { 
-                //     top_div.style.display = "none"; 
-                // } 
-            }) 
+            //     // if( t >= 300 ) { 
+            //     //     top_div.style.display = "inline"; 
+            //     // } else { 
+            //     //     top_div.style.display = "none"; 
+            //     // } 
+            // }) 
         </script>
         <script>
             //数据更新
