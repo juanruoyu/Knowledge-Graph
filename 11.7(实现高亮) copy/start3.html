@@ -450,7 +450,7 @@
                 // }
                 // console.log("push", nodes.length,edges.length)
                 d = {"nodes":nodes,"edges":edges}  
-                Show_select_Points(d, true);
+                Show_select_Points(d, 2);
 
             }
             //增加数据
@@ -458,7 +458,7 @@
                 decrease();
                 var datas = JSON.parse(localStorage.getItem("global_datas"));
                 d = {"nodes":datas.nodes,"edges":datas.edges}               
-                Show_select_Points(d, false);
+                Show_select_Points(d, 1);
                 //visiual(datas)
 
                 // for (var i =0; i<10;i++){
@@ -479,14 +479,15 @@
             }
             
             function Show_select_Points(dataset, bigsize){
+                
                 var svg = d3.selectAll("svg")
                 //if (bigsize) {v_force = -2500}
-                v_force = -400
+                v_force = -400 * bigsize;
                 var force = d3.layout.force()
                     .nodes(dataset.nodes) //指定节点数组
                     .links(dataset.edges) //指定连线数组
                     .size([1100,1080]) //指定作用域范围
-                    .linkDistance(70) //指定连线长度
+                    .linkDistance(70 * bigsize) //指定连线长度
                     .charge([v_force]); //相互之间的作用力;
                     force.start();
                 
@@ -527,7 +528,7 @@
                     .attr("transform",offset)
                     .attr("r", function(d) {
                             var minRadius = 5;
-                            return minRadius + (d.weight*0.2);
+                            return (minRadius + (d.weight*0.5))*bigsize;
                           })
                     .style("stroke-width", 1)
                     .attr("cx",function(d){return d.x;})
@@ -551,7 +552,9 @@
                     .style("fill", "black")
                     .attr("dx", 20)
                     .attr("dy", 8)
-                    .attr("font-size","10px")
+                    .attr("font-size",function(d){
+                        return (10+ d.weight*0.2 + 'px')*bigsize;
+                    })
                     .text(function(d){
                         return d.name;
                     })
@@ -587,9 +590,10 @@
                     b.style("stroke-width", 1)
                         .attr("r", function(d) {
                             var minRadius = 5;
-                            return minRadius + (d.weight*0.2);
+                            return (minRadius + (d.weight*0.5))*bigsize;
                           })
-                    c.attr("font-size", 10)
+                    c.attr("font-size", function(d){
+                        return (10+ d.weight*0.1 + 'px')*bigsize;})
                         .style("fill-opacity", 1)
                     
                 };
@@ -616,7 +620,10 @@
                                    
                     b.filter(function(d){ return neighbors[d.index] })
                         .style("stroke-width", 3)
-                        .attr("r" ,Math.ceil(Math.random() * 10+10));
+                        .attr("r" ,function(d){
+                            var minRadius = 5;
+                            return (minRadius + (d.weight*0.5))*bigsize *1.2;
+                            });
 
                     c.filter(function(d){ return !neighbors[d.index] })
                         .style("fill-opacity", 0.2);
