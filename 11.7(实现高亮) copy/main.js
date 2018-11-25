@@ -8,11 +8,29 @@
                 new_data.edges = data.edges;
                 global_datas = new_data;
                 localStorage.setItem("global_datas",JSON.stringify(global_datas)); //存入 参数： 1.调用的值 2.所要存入的数据 
+                show_search(new_data.nodes)
                 visiual(new_data);
+
                 
                
             });
+            function show_search(nodes){
+                // li_obj = $("li[name='mytable']")
+                // console.log('init search ',li_obj)
+                // for (var i =0 ;i < li_obj.length)
+                var oList = document.getElementById('style-1');
+                items = $("#style-1").empty();
+                console.log("init search ",oList,items);
+                for(var i = 0;i < nodes.length; i++){
+                        item = document.createElement('li');
+                        item.setAttribute("name", "mytable");
+                        item.setAttribute("style", "font-size:16px;line-height:30px;");
+                        item.innerHTML = nodes[i].name;
+                        oList.appendChild(item);
 
+                    }
+            }
+            
             function generate_nodes_edges(datas){
                 var nodes = [];
                 for (i in datas){
@@ -168,7 +186,7 @@
             }
             var text_id = 0 ;
             //需要jquery动态添加 http://www.w3school.com.cn/jquery/event_delegate.asp
-            $("#style-1").delegate("li[name= 'mytable']","click",function(){
+            $("#style-1").delegate("li[name='mytable']","click",function(){
                 console.log('debug', $(this).text(),'a','b')
                 node_name = $(this).text()
                 var txt1 = "<div id= 'text_id' > <input type='text' onkeydown='getKey(this)'> <input type='button' value='save and close' index=‘text_id’ onclick='deleteText(this)'></div>";    
@@ -179,7 +197,7 @@
                     $(this).append(txt1);
                     //console.log('xxxxxxx',node_name,'aa','bb')
                     decrease();
-                    console.log("clear all")
+                    console.log("clear all circle")
                     update_1(node_name);
                 }
 
