@@ -657,6 +657,68 @@
 
             }
             
+            function update_by_weight(ratio){
+                //redius from 0 - 82  0-60 
+                //ratio from 0 to 100 :[0- 10- 20-30  -40-50  -60-70  -80-90  -100]
+
+                var last_ratio = Number(localStorage.getItem("last_ratio"));
+                localStorage.setItem("last_ratio",ratio); //存入进度条的初始值
+
+                if (Math.round(ratio/10) ==  Math.round(last_ratio/10)){
+                    return
+                }
+                cs = d3.selectAll("circle")
+                ts = d3.selectAll("text")
+                ls = d3.selectAll("line")
+                //filter all nodes which weight smaller than ratio
+                index_map = {
+                    0: 0,  1: 8.2,   2: 16.4, 3: 24.6,   4: 32.8,
+                    5: 41, 6: 49.2,  7: 57.4, 8: 65.6,   9: 73.8,
+                }
+                min_redius = ratio/100 * 30 //index_map[Math.round(ratio/10)]
+                console.log('last ratio ',last_ratio, min_redius)   
+
+                max_weight = 0
+                cs.filter(function (d){
+                    if (d.weight < min_redius) return true;
+                    else return false;
+                    })// 过滤掉所有大于min_redius的圆，剩下的变成透明
+                    .attr("visibility","hidden");
+                
+                cs.filter(function (d){
+                    //max_weight = Math.max(max_weight,d.weight)
+                    if (d.weight >= min_redius) return true;
+                    else return false;
+                    })
+                    .attr("visibility","visible");
+                
+                ts.filter(function (d){
+                    if (d.weight < min_redius) return true;
+                    else return false;
+                    })
+                    .attr("visibility","hidden");
+                
+                ts.filter(function (d){
+                    if (d.weight >= min_redius) return true;
+                    else return false;
+                    })
+                    .attr("visibility","visible");
+                
+                ls.filter(function (d){
+                    if ((d.source.weight < min_redius) || (d.target.weight < min_redius)) return  true;
+                    else return false;
+                })
+                    .attr("visibility","hidden")
+                   
+                ls.filter(function (d){
+                    if ((d.source.weight >=  min_redius) && (d.target.weight >= min_redius)) return  true;
+                    else return false;
+                })
+                    .attr("visibility","visible")  
+
+            };
+
+            
         </script>
             <!-- <button onclick="update()">update</button>
             <button onclick="recover()">recover</button>
@@ -693,7 +755,7 @@
             var change_circle = function($input) {
                 /*内容可自行定义*/
                 console.log("123",$input.value);
-                update_by_redius($input.value)
+                update_by_weight($input.value)
             }
 
             $('#myrange').RangeSlider({ min: 0,   max: 100,  step: 0.1,  callback: change_circle});

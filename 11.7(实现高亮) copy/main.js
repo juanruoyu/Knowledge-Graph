@@ -8,6 +8,9 @@
                 new_data.edges = data.edges;
                 global_datas = new_data;
                 localStorage.setItem("global_datas",JSON.stringify(global_datas)); //存入 参数： 1.调用的值 2.所要存入的数据 
+                last_ratio = 0 //input range of slipper 
+                localStorage.setItem("last_ratio",JSON.stringify(last_ratio)); //存入进度条的初始值
+
                 show_search(new_data.nodes)
                 visiual(new_data);
 
@@ -101,7 +104,7 @@
                     //.attr("r",5)
                     .attr("r", function(d) {
                         var minRadius = 5;
-                        return minRadius + (d.weight*0.2);
+                        return minRadius + (d.weight*0.5);
                       })
                     .style("fill",function(d,i){
                         return color(i);
@@ -120,7 +123,9 @@
                     .style("fill", "black")
                     .attr("dx", 20)
                     .attr("dy", 8)
-                    .attr("font-size","7px")
+                    .attr("font-size",function(d){
+                        return 7+ d.weight*0.1 + 'px'
+                    })
                     .text(function(d){
                         return d.name;
                     });
@@ -149,9 +154,11 @@
                         // .attr("r",5)
                         .attr("r", function(d) {
                             var minRadius = 5;
-                            return minRadius + (d.weight*0.2);
+                            return minRadius + (d.weight*0.5);
                           })
-                    svg_texts.attr("font-size", 10)
+                    svg_texts.attr("font-size", function(d){
+                        return 7+ d.weight*0.1 + 'px'
+                        })
                         .style("fill-opacity", 1)
                 };
 
@@ -173,7 +180,9 @@
 
                     svg_nodes.filter(function(d){ return neighbors[d.index] })
                         .style("stroke-width", 3)
-                        .attr("r" ,Math.ceil(Math.random() * 10+10));
+                        .attr("r" ,function(d){
+                            return (5 + d.weight * 0.5)* 1.1
+                        })//Math.ceil(Math.random() * 10+10));
 
                     svg_texts.filter(function(d){ return !neighbors[d.index] })
                         .style("fill-opacity", 0.2);
