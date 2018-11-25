@@ -89,7 +89,67 @@
             background-color: #555;
         }
 
+        #wrapper{
+            margin-left:10;
+            margin-top: 10;
+            position: relative;
+            width:200px;
+            height:20px;
+            border:1px solid darkgray;
+        }
+        /*将滑块和填充块设置成inline-block,保证他们在同一行内*/
+        #slider{
+            position: absolute;
+            left:0;
+            width:20px;
+            height:20px;
+            display: inline-block;
+            background-color: #0808088f;
+            cursor:pointer;
+        }
+        #fill{
+            display: inline-block;
+            width:0;
+            height:20px;
+            background: #bbbdb9;
+        }
+        
+        input[type=range] {
+            -webkit-appearance: none;
+            position: absolute;
+            margin-left:10;
+            margin-top: 10;
+            width: 200px;
+            display: inline-block;
 
+            /* width: 10px; */
+            border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 200px;
+
+        }    
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 15px;
+            width: 200px;
+            border-radius: 10px; /*将轨道设为圆角的*/
+            box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 25px;
+            width: 25px;
+            margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
+            background: #ffffff; 
+            border-radius: 50%; /*外观设置为圆形*/
+            border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+            box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+            
+        }
 
     </style>
     
@@ -99,9 +159,7 @@
 
     <body >
         <link rel="stylesheet" href="lib/style/bootstrap.min.css">
-
-    
-        <nav class="navbar nav-default" role="navigation" style="background-color: grey; max-height: 60px;">
+        <nav class="navbar nav-default" role="navigation" style="background-color: grey; max-height: 60px;margin-bottom: 5px">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
                     <p style="color: black"> Knowlege Graph </p></a>
@@ -113,7 +171,7 @@
                 </ul>
             </div>
         </nav>
-        
+
         <div id="right_select_box">
             <div id= "col-sm-3 col-sm-offset-9 col-md-3 col-md-offset-9 sidebar" ng-class="{invisible: uiConfig.hideControlPanel}">
                 <script src="scripts/controller/rightCtrl.js"></script>
@@ -169,30 +227,8 @@
                                                 // var app = angular.module('myApp3', []);
                                                 //     app.controller('cc', function($scope) {
                                                 //         global_datas = JSON.parse(localStorage.getItem("global_datas"));
-                                                        
-
                                                 //         $scope.graphnode1 = global_datas.nodes[0].name;
-                                                //         $scope.graphnode2 = global_datas.nodes[1].name;
-                                                //         $scope.graphnode3 = global_datas.nodes[2].name;
-                                                //         $scope.graphnode4 = global_datas.nodes[3].name;
-                                                //         $scope.graphnode5 = global_datas.nodes[4].name;
-                                                //         $scope.graphnode6 = global_datas.nodes[5].name;
-                                                //         $scope.graphnode7 = global_datas.nodes[6].name;
-                                                //         $scope.graphnode8 = global_datas.nodes[7].name;
-                                                //         $scope.graphnode9 = global_datas.nodes[8].name;
-                                                //         $scope.graphnode10 = global_datas.nodes[9].name;
-                                                //         $scope.graphnode11 = global_datas.nodes[10].name;
-                                                //         $scope.graphnode12 = global_datas.nodes[11].name;
-                                                //         $scope.graphnode13 = global_datas.nodes[12].name;
-                                                //         $scope.graphnode14 = global_datas.nodes[13].name;
-                                                //         $scope.graphnode15 = global_datas.nodes[14].name;
-                                                //         $scope.graphnode16 = global_datas.nodes[15].name;
-                                                //         $scope.graphnode17 = global_datas.nodes[16].name;
-                                                //         $scope.graphnode18 = global_datas.nodes[17].name;
-                                                //         $scope.graphnode19 = global_datas.nodes[18].name;
-                                                //         $scope.graphnode20 = global_datas.nodes[19].name;
-
-
+                                                
                                                 //     });     
                                             </script>
                                             <!-- </tr> -->
@@ -207,6 +243,16 @@
                     
             </div>
         </div>  
+
+    
+        <!--外层容器-->
+        <input type="range" value="0" style="width:200px" id="myrange">
+
+        <!-- <div id="wrapper">
+              
+            <div id="fill"></div>
+            <div id="slider"></div>
+        </div> -->
 
         <script src="lib/jquery-1.9.1.js"></script>
 
@@ -612,9 +658,48 @@
             }
             
         </script>
-        <!-- <button onclick="update()">update</button>
-        <button onclick="recover()">recover</button>
-        <button onclick="decrease()">decrease</button> -->
+            <!-- <button onclick="update()">update</button>
+            <button onclick="recover()">recover</button>
+            <button onclick="decrease()">decrease</button> -->
+       
+        <script>
+            $.fn.RangeSlider = function(cfg){
+                this.sliderCfg = {
+                    min: cfg && !isNaN(parseFloat(cfg.min)) ? Number(cfg.min) : null, 
+                    max: cfg && !isNaN(parseFloat(cfg.max)) ? Number(cfg.max) : null,
+                    step: cfg && Number(cfg.step) ? cfg.step : 1,
+                    callback: cfg && cfg.callback ? cfg.callback : null
+                };
 
+                var $input = $(this);
+                var min = this.sliderCfg.min;
+                var max = this.sliderCfg.max;
+                var step = this.sliderCfg.step;
+                var callback = this.sliderCfg.callback;
+
+                $input.attr('min', min)
+                    .attr('max', max)
+                    .attr('step', step);
+
+                $input.bind("input", function(e){
+                    $input.attr('value', this.value);
+                    $input.css( 'background', 'linear-gradient(to right, #3b4547, white ' + this.value + '%, white)' );
+
+                    if ($.isFunction(callback)) {
+                        callback(this);
+                    }
+                });
+            };
+            var change_circle = function($input) {
+                /*内容可自行定义*/
+                console.log("123",$input.value);
+                update_by_redius($input.value)
+            }
+
+            $('#myrange').RangeSlider({ min: 0,   max: 100,  step: 0.1,  callback: change_circle});
+
+
+
+        </script>    
     </body>
 </html>
