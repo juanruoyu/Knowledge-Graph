@@ -553,7 +553,8 @@
                     .attr("dx", 20)
                     .attr("dy", 8)
                     .attr("font-size",function(d){
-                        return (10+ d.weight*0.2 + 'px')*bigsize;
+                        if (bigsize == 1) return  10
+                        else return (10+ d.weight*0.2 + 'px')*bigsize;
                     })
                     .text(function(d){
                         return d.name;
@@ -593,7 +594,8 @@
                             return (minRadius + (d.weight*0.5))*bigsize;
                           })
                     c.attr("font-size", function(d){
-                        return (10+ d.weight*0.1 + 'px')*bigsize;})
+                        if (bigsize == 1) return  10
+                        else return (10+ d.weight*0.2 + 'px')*bigsize;})
                         .style("fill-opacity", 1)
                     
                 };
